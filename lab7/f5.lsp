@@ -8,7 +8,7 @@
 			(or 
 				(< n1 0)
 				(< n2 0)
-				
+
 				(> n1 (length lst))
 				(> n2 (length lst))
 			)
@@ -34,13 +34,20 @@
 		
 		(if 
 			(or 
-				(> n1 (length lst))
-				(> n2 (length lst))
+				(< n1 0)
+				(< n2 0)
+				
+				(>= n1 (length lst))
+				(>= n2 (length lst))
 			)
 			
 			Nil
 			
-			(append 
+			(append (subseq lst 0 n1)
+					(list (nth n2 lst))
+					(subseq lst num1 n2)
+					(list (nth n1 lst))
+					(nthcdr num2 lst)
 			)
 		)
 	)
