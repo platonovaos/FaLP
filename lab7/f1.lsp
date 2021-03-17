@@ -9,13 +9,11 @@
 ;Вариант2
 (defun polyHndl (lst idx)
 	(let ((len (length lst)))
-		(if 
-			(<= (/ len 2) idx)
-			T
-			(cond 
-				((equal (nth idx lst) (nth (- len idx 1) lst))
+		(cond 
+			((<= (/ len 2) idx) T)
+			
+			((equalp (nth idx lst) (nth (- len idx 1) lst))
 				(polyHndl lst (+ idx 1)))
-			)
 		)
 	)
 )
