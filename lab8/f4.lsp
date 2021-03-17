@@ -1,14 +1,13 @@
 (defun sum_lst (lst)
-	(let ((s 0))
+	(apply #' +
 		(mapcar 
 			#'(lambda (x)
 				(if 
 					(numberp x)
-					(setf s (+ s x))
+					x
 				)
 			)
 			lst
 		)
-		s
 	)
 )
