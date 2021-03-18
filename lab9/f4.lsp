@@ -12,7 +12,7 @@
 	)
 )
 
-(defun sb_rec (lst res)
+(defun sb_rec (lst &optional res)
 	(cond 
 		((Null lst) (reverse res))
 		
@@ -21,8 +21,4 @@
 
 		(T (sb_rec (cdr lst) res))
 	)
-)
-
-(defun sb (lst)
-	(sb_rec lst ())
 )
