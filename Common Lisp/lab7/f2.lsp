@@ -1,24 +1,17 @@
 (defun belong (s1 s2)
-	(if 
-		(Null s1)
-		T
-		(if 
-			(Null (member (car s1) s2)) 	
-			Nil
-			(belong (cdr s1) s2)
-		)
+	(cond
+		((Null s1) T)
+		((Null (member (car s1) s2)) Nil)
+		(T (belong (cdr s1) s2))
 	)
 )
 
 (defun set_equal (s1 s2)
-	(if
-		(and
-			(= (length s1) (length s2))
-			(belong s1 s2) 
-			(belong s2 s1)
-		)
-			
-		'are_equal
-		'are_not_equal
+	(and
+		(= (length s1) (length s2))
+		(belong s1 s2)
 	)
 )
+
+
+

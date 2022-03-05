@@ -1,34 +1,60 @@
 ;Вариант 1
-(defun swap_first_last (lst)
-	(or
-		(rotatef 
-				(car lst) 
-				(car (last lst))
-		) 
-		lst
+;3 прохода
+(defun swap-fl (lst)
+	(let 
+		((firstE (car lst))
+		(lastE (car (last lst)))
+		(lstWFL (cdr (reverse (cdr lst)))))
+
+		(cons lastE 
+			(reverse (cons firstE lstWFL))
+		)
 	)
 )
+
 
 ;Вариант 2
-(defun swap_fl (lst)
-	(let 
-		((firstE (car lst))
-		(lastE (car (last lst)))
-		(lstWFL (reverse (cdr (reverse (cdr lst))))))
-
-		(append (list lastE) lstWFL (list firstE))
+;2 прохода
+(defun get-last (lst)
+	(cond
+		((Null (cdr lst)) (car lst))
+		(T (get-last (cdr lst)))
 	)
 )
 
-;Вариант 3
-(defun swap_fl2 (lst)
-	(let 
-		((firstE (car lst))
-		(lastE (car (last lst)))
-
-		(setf (car lst) lastE)
-		(setf (car (last lst)) firstE)
-
-		lst
+(defun set-last (lst elem)
+	(cond 
+		((Null (cdr lst)) (setf (car lst) elem))
+		(T (set-last (cdr lst) elem))
 	)
+)
+
+(defun swap-fl2 (lst)
+	(let 
+		((tmp (car lst)))
+
+		(setf (car lst) (get-last lst))
+		(set-last lst tmp)
+	)
+	lst
+)
+
+
+;Вариант 3
+;1 проход
+(defun swap (tail head res)
+	(cond
+		((Null (cdr tail)) (cons (car tail) 
+								 (cons head Nil)))
+
+		(T 	(setf res (swap (cdr tail) head res))
+			
+			(cons (car res)
+				  (cons (car tail)
+					    (cdr res))))
+	)
+)
+
+(defun swap-fl3 (lst)
+	(swap (cdr lst) (car lst) Nil)
 )

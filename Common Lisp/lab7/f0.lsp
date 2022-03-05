@@ -1,21 +1,21 @@
-(defun test (lst)
+(defun test (tail head)
 	(let ((res))
 		(cond
-			((Null (cddr lst)) (cons (cdr lst) 
-										(cons (car lst) Nil)))
+			((Null (cdr tail)) (cons (car tail) 
+										(cons head Nil)))
 
 			(T 
-				(setf res (test (cdr lst)))
+				(setf res (test (cdr tail) head))
 
 				(cons 
 					(car res)
 					(cons 
-						(car lst)
+						(car tail)
 						(cdr res))))
 		)
 	)
 )
 
 (defun swap (lst)
-	(cons (test (cdr lst)) (car lst))
+	(test (cdr lst) (car lst))
 )

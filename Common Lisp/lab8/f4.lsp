@@ -1,13 +1,7 @@
-(defun sum_lst (lst)
-	(apply #' +
-		(mapcar 
-			#'(lambda (x)
-				(if 
-					(numberp x)
-					x
-				)
-			)
-			lst
-		)
+(defun s (lst)
+	(cond 
+		((Null lst) 0)
+		((numberp (car lst)) (+ (car lst) (s (cdr lst))))
+		(T (+ (s (car lst)) (s (cdr lst))))
 	)
 )

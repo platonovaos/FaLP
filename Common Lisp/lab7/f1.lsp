@@ -8,7 +8,8 @@
 
 ;Вариант2
 (defun polyHndl (lst idx)
-	(let ((len (length lst)))
+	(let 
+		((len (length lst)))
 		(cond 
 			((<= (/ len 2) idx) T)
 			
@@ -19,5 +20,7 @@
 )
 
 (defun isPolyndrom (lst)
-	(polyHndl lst 0)	
-)
+	(polyHndl lst 0)
+)	
+
+

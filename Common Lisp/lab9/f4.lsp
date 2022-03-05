@@ -3,7 +3,7 @@
 		(mapcar 
 			#'(lambda (x)
 				(if 
-					(and (< 1 x) (< x 10))
+					(< 1 x 10)
 					x
 				)
 			)
@@ -13,12 +13,20 @@
 )
 
 (defun sb_rec (lst &optional res)
-	(cond 
-		((Null lst) (reverse res))
+	(if
+		(Null lst) 
+		(reverse res)
 		
-		((and (< 1 (car lst)) (< (car lst) 10))
-			(sb_rec (cdr lst) (cons (car lst) res)))
+		(if 
+			(not (listp (car lst)))
 
-		(T (sb_rec (cdr lst) res))
+			(if 
+				(< 1 (car lst) 10)
+				(sb_rec (cdr lst) (cons (car lst) res))
+				(sb_rec (cdr lst) res)
+			)
+
+			(sb_rec (append (car lst) (cdr lst)) res)
+		)
 	)
 )

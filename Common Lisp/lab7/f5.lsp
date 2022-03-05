@@ -1,84 +1,43 @@
-;Вариант 1
-(defun swap_two_ellement (lst num1 num2)
-	(let 
-		((n1 (- num1 1))
-		(n2 (- num2 1)))
-		
-		(if 
-			(or 
-				(< n1 0)
-				(< n2 0)
-
-				(>= n1 (length lst))
-				(>= n2 (length lst))
-			)
-			
-			Nil
-			
-			(rotatef 
-				(nth n1 lst)
-				(nth n2 lst)
-			)
-		)
-		
-		lst
+;4 прохода
+(defun get-n-elem (n lst)
+	(cond 
+		((or (< n 0) (>= n (length lst))) Nil)
+		((= n 0) (car lst))
+		(T (get-n-elem (- n 1) (cdr lst)))
 	)
 )
 
-
-;Вариант 2
-(defun swap_te (lst num1 num2)
-	(let 
-		((n1 (- num1 1))
-		(n2 (- num2 1)))
-		
-		(if 
-			(or 
-				(< n1 0)
-				(< n2 0)
-				
-				(>= n1 (length lst))
-				(>= n2 (length lst))
-			)
-			
-			Nil
-			
-			(append (subseq lst 0 n1)
-					(list (nth n2 lst))
-					(subseq lst num1 n2)
-					(list (nth n1 lst))
-					(nthcdr num2 lst)
-			)
-		)
+(defun set-n-elem (n lst elem)
+	(cond 
+		((or (< n 0) (>= n (length lst))) Nil)
+		((= n 0) (cons elem (cdr lst)))
+		(T (cons (car lst) (set-n-elem (- n 1) (cdr lst) elem)))
 	)
 )
 
-;Вариант 3
-(defun swap_te2 (lst num1 num2)
+(defun swap-two-ellement (lst num1 num2)
 	(let 
 		((n1 (- num1 1))
 		(n2 (- num2 1))
-		(e1 0)
-		(e2 0))
+		(tmp))
 		
-		(if 
-			(or 
+		(cond 
+			((or 
 				(< n1 0)
 				(< n2 0)
-				
+
 				(>= n1 (length lst))
 				(>= n2 (length lst))
 			)
 			
-			Nil
+			Nil)
 			
-			(progn
-				(setf e1 (nth n1 lst))
-				(setf e2 (nth n2 lst))
-				(setf (nth n1 lst) e2)
-				(setf (nth n2 lst) e1)
-				lst
-			)
+			(T 
+				(setf tmp (get-n-elem n1 lst))
+				(setf lst (set-n-elem n1 lst (get-n-elem n2 lst)))
+				(setf lst (set-n-elem n2 lst tmp)))
 		)
+		
+		lst
 	)
 )
